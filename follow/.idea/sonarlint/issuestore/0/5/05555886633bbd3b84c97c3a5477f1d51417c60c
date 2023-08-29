@@ -1,0 +1,15 @@
+
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ƒÀ€œ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(™Äå
+S	java:S106'"9Replace this use of System.out or System.err by a logger.(ÙÏê£ûÿÿÿÿ
+V	java:S125,"<This block of commented-out lines of code should be removed.(èİÎÑşÿÿÿÿ
+S	java:S106="9Replace this use of System.out or System.err by a logger.(´†ĞÛúÿÿÿÿ
+S	java:S106@"9Replace this use of System.out or System.err by a logger.(Éñ½ÿùÿÿÿÿ
+S	java:S106B"9Replace this use of System.out or System.err by a logger.(·Ê©°şÿÿÿÿ
+G
+java:S1128"1Remove this unused import 'com.google.gson.Gson'.(–§
+`
+java:S1128"JRemove this unused import 'io.netty.channel.ChannelInboundHandlerAdapter'.(ş‘Â³
+^
+java:S1128
+"CRemove this unused import 'jdk.nashorn.internal.parser.JSONParser'.(©ß÷‰ıÿÿÿÿ

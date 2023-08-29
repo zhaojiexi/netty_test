@@ -1,0 +1,45 @@
+
+S
+java:S11178"8Rename "host" which hides the field declared at line 41.(’Èåøÿÿÿÿ
+N
+java:S11179"8Rename "port" which hides the field declared at line 42.(óÎ“ì
+_
+java:S3358:"DExtract this nested ternary operation into an independent statement.(Üöš’ÿÿÿÿÿ
+E
+java:S1481<"/Remove this unused "handshaker" local variable.(‰ÇÕº
+V	java:S125?"<This block of commented-out lines of code should be removed.(ãÉ”‰şÿÿÿÿ
+S	java:S106Y"9Replace this use of System.out or System.err by a logger.(˜ªÕÿÿÿÿÿ
+N	java:S106\"9Replace this use of System.out or System.err by a logger.(ïƒ¿«
+Q	java:S125w"<This block of commented-out lines of code should be removed.(êëÄ
+o
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(¡©Ê‡øÿÿÿÿ
+J
+java:S1128"4Remove this unused import 'io.netty.buffer.ByteBuf'.(¬¶ç›
+c
+java:S1128"HRemove this unused import 'io.netty.handler.codec.http.HttpClientCodec'.(ê«óìıÿÿÿÿ
+_
+java:S1128"DRemove this unused import 'io.netty.handler.codec.http.HttpHeaders'.(½ÍÎÜûÿÿÿÿ
+a
+java:S1128"KRemove this unused import 'io.netty.handler.codec.http.HttpRequestDecoder'.(†û…ƒ
+b
+java:S1128"LRemove this unused import 'io.netty.handler.codec.http.HttpResponseEncoder'.(şÖ‚à
+}
+java:S1128"bRemove this unused import 'io.netty.handler.codec.http.websocketx.WebSocketClientProtocolHandler'.(¼Ş¦£ùÿÿÿÿ
+w
+java:S1128"\Remove this unused import 'io.netty.handler.codec.http.websocketx.WebSocketFrameAggregator'.(ìÔˆ‚øÿÿÿÿ
+x
+java:S1128"bRemove this unused import 'io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler'.(Ò„õö
+—
+java:S1128"|Remove this unused import 'io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientCompressionHandler'.(É¯íÊÿÿÿÿÿ
+—
+java:S1128"|Remove this unused import 'io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler'.(’ÓÅ°ùÿÿÿÿ
+c
+java:S1128"HRemove this unused import 'io.netty.handler.stream.ChunkedWriteHandler'.(’ıèËúÿÿÿÿ
+I
+java:S1128"3Remove this unused import 'java.io.BufferedReader'.(€é²Å
+L
+java:S1128"6Remove this unused import 'java.io.InputStreamReader'.(ãˆÎÉ
+>
+java:S1068)"(Remove this unused "host" private field.(´Ó…
+C
+java:S1068*"(Remove this unused "port" private field.(™ìÅÿÿÿÿÿ

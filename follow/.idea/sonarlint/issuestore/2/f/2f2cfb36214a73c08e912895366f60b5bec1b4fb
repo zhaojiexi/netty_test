@@ -1,0 +1,17 @@
+
+S
+java:S1117."8Rename "host" which hides the field declared at line 31.(’Èåøÿÿÿÿ
+N
+java:S1117/"8Rename "port" which hides the field declared at line 32.(óÎ“ì
+_
+java:S33580"DExtract this nested ternary operation into an independent statement.(Üöš’ÿÿÿÿÿ
+E
+java:S14812"/Remove this unused "handshaker" local variable.(‰ÇÕº
+V	java:S1255"<This block of commented-out lines of code should be removed.(ãÉ”‰şÿÿÿÿ
+S	java:S106O"9Replace this use of System.out or System.err by a logger.(˜ªÕÿÿÿÿÿ
+N	java:S106R"9Replace this use of System.out or System.err by a logger.(ïƒ¿«
+Q	java:S125m"<This block of commented-out lines of code should be removed.(êëÄ
+>
+java:S1068"(Remove this unused "host" private field.(´Ó…
+C
+java:S1068 "(Remove this unused "port" private field.(™ìÅÿÿÿÿÿ
