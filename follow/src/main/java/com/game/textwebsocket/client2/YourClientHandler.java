@@ -1,13 +1,7 @@
-package com.game.client2;
+package com.game.textwebsocket.client2;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelPromise;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import io.netty.util.concurrent.EventExecutorGroup;
 
 /**
  * @author zhaojx
@@ -15,8 +9,6 @@ import io.netty.util.concurrent.EventExecutorGroup;
  */
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import netscape.javascript.JSObject;
 
 public class YourClientHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
   @Override
