@@ -42,7 +42,9 @@ public class NettyClient {
             }
           });
       ChannelFuture future = bootstrap.connect(host, port).sync();
-      startConsoleInput(future.channel());
+      if (future.isSuccess()) {
+        startConsoleInput(future.channel());
+      }
       future.channel().closeFuture().sync();
 
     } catch (IOException e) {
@@ -52,7 +54,7 @@ public class NettyClient {
     }
   }
 
-  private static void  startConsoleInput(Channel channel) throws IOException {
+  private static void startConsoleInput(Channel channel) throws IOException {
     Terminal terminal = TerminalBuilder.terminal();
     LineReader lineReader = LineReaderBuilder.builder()
         .terminal(terminal)
@@ -71,7 +73,7 @@ public class NettyClient {
     }
   }
 
- public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
     String host = "localhost";
     int port = 8080;
 

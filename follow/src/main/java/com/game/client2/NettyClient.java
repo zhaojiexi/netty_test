@@ -3,8 +3,10 @@ package com.game.client2;
 import com.game.client2.YourClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;
@@ -26,6 +28,7 @@ import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketSe
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.util.CharsetUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,16 +54,10 @@ public class NettyClient {
 
     try {
       URI wsUri = new URI(uri);
-
-      final String scheme = wsUri.getScheme() == null ? "ws" : wsUri.getScheme();
-      final String host = wsUri.getHost() == null ? "localhost" : wsUri.getHost();
-      final int port =
-          wsUri.getPort() == -1 ? (scheme.equalsIgnoreCase("wss") ? 443 : 80) : wsUri.getPort();
-
       final WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(
           wsUri, WebSocketVersion.V13, null, false, new DefaultHttpHeaders());
 
-      //final WebSocketClientHandler handler = new WebSocketClientHandler(handshaker);
+
 
       Bootstrap bootstrap = new Bootstrap();
       bootstrap.group(group)
@@ -72,37 +69,35 @@ public class NettyClient {
               ch.pipeline()
                   .addLast(new LoggingHandler(LogLevel.TRACE))
                   // HttpRequestDecoder和HttpResponseEncoder的一个组合，针对http协议进行编解码
-                  .addLast(new HttpServerCodec())
+                  .addLast(new HttpClientCodec())
                   // 需要放到HttpServerCodec这个处理器后面
                   .addLast(new HttpObjectAggregator(10240))
-                  // 自定义处理器 - 处理 web socket 二进制消息
-                  .addLast(new YourClientHandler());
-              // 自定义处理器 - 处理 web socket 文本消息
-              //.addLast(new YourClientHandler2())
+                  .addLast(new WebSocketClientProtocolHandler(handshaker))
+                  .addLast(new YourClientHandler())
+              ;
             }
           });
 
       ChannelFuture future = bootstrap.connect(host, port).sync();
-      future.addListener((ChannelFutureListener) futureListener -> {
-        if (futureListener.isSuccess()) {
-          futureListener.channel().writeAndFlush(new TextWebSocketFrame("1111"));
-          System.out.println("Connected to server successfully!");
-          startConsoleInput(futureListener.channel());
-        } else {
-          System.err.println("Failed to connect to server.");
-          futureListener.cause().printStackTrace();
+      if (future.isSuccess()) {
+        if (future.channel().isActive()) {
+          System.out.println("客户端连接成功");
         }
-      });
+        future.channel().writeAndFlush(Unpooled.copiedBuffer("HelloNetty", CharsetUtil.UTF_8));
+        System.out.println("Connected to server successfully!");
+
+        startConsoleInput(future.channel());
+      }
 
       future.channel().closeFuture().sync();
-    } catch (URISyntaxException e) {
+    } catch (URISyntaxException | IOException e) {
       e.printStackTrace();
     } finally {
       group.shutdownGracefully();
     }
   }
 
-  private static void  startConsoleInput(Channel channel) throws IOException {
+  private static void startConsoleInput(Channel channel) throws IOException {
     Terminal terminal = TerminalBuilder.terminal();
     LineReader lineReader = LineReaderBuilder.builder()
         .terminal(terminal)
@@ -120,13 +115,13 @@ public class NettyClient {
 //      ByteBuf buffer = channel.alloc().buffer();
 //      buffer.writeBytes(message.getBytes());
 //      channel.writeAndFlush(buffer);
-      channel.writeAndFlush(new TextWebSocketFrame("111111"));
+      channel.writeAndFlush(new TextWebSocketFrame(line));
 
       prompt = "Enter your message (exit to quit): ";
     }
   }
 
- public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
     String host = "localhost";
     int port = 8080;
 
