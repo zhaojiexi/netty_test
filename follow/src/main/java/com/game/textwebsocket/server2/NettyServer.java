@@ -18,6 +18,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class NettyServer {
 
@@ -50,7 +51,9 @@ public class NettyServer {
                    * 如果不加这个，Netty将无法识别传入的WebSocket连接，并将其视为普通的HTTP请求，所以不会响应
                    */
                   .addLast(new WebSocketServerProtocolHandler("/hello"))
-                  .addLast(new YourServerHandler());
+                  .addLast(new YourServerHandler())
+                  //.addLast(new IdleStateHandler(20,10,30))
+              ;
             }
           });
 

@@ -9,6 +9,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshakerFactory;
@@ -16,6 +17,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketClientProtocolHandler;
 import io.netty.handler.codec.http.websocketx.WebSocketVersion;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 import java.io.IOException;
 import java.net.URI;
@@ -43,8 +45,6 @@ public class NettyClient {
       final WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(
           wsUri, WebSocketVersion.V13, null, false, new DefaultHttpHeaders());
 
-
-
       Bootstrap bootstrap = new Bootstrap();
       bootstrap.group(group)
           .channel(NioSocketChannel.class)
@@ -69,9 +69,6 @@ public class NettyClient {
         if (future.channel().isActive()) {
           System.out.println("客户端连接成功");
         }
-        future.channel().writeAndFlush(Unpooled.copiedBuffer("HelloNetty", CharsetUtil.UTF_8));
-        System.out.println("Connected to server successfully!");
-
         startConsoleInput(future.channel());
       }
 
@@ -96,11 +93,6 @@ public class NettyClient {
         channel.close().syncUninterruptibly();
         break;
       }
-
-//      String message = line;
-//      ByteBuf buffer = channel.alloc().buffer();
-//      buffer.writeBytes(message.getBytes());
-//      channel.writeAndFlush(buffer);
       channel.writeAndFlush(new TextWebSocketFrame(line));
 
       prompt = "Enter your message (exit to quit): ";
